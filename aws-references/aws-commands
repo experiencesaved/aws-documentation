@@ -1,0 +1,6 @@
+
+//Create new bucket
+aws s3api create-bucket --bucket test-bucket-989282 --region us-east-1
+
+//Delete bucket
+aws s3api delete-bucket --bucket test-bucket-98239823 --region us-east-1
