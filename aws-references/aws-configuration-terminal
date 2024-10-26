@@ -7,7 +7,10 @@ signin aws console -> secuirty -> create access key
 aws configure
 //provide access key
 //provide access key secret
-//provide region
+//provide region -> us-east-1(for example)
+//Default output format [None]: json
+
+
 
 
 
