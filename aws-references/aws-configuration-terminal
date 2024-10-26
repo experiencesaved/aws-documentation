@@ -1,0 +1,21 @@
+//AWS Configuration in terminal
+
+//create new access key
+signin aws console -> secuirty -> create access key
+
+//configure command
+aws configure
+//provide access key
+//provide access key secret
+//provide region
+
+
+
+
+//Running EC2 Instance in Terminal
+
+//keep pemkey.pem in current directory and give permission chmod 600 pemkey.pem
+
+ssh -i pemkey.pem instance-name@aws-public-dns
+//Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+
