@@ -1,0 +1,32 @@
+List EC2 Instances:
+
+Step by step:
+1) Call the describe-instances command. This retrieves all sorts of metadata about an EC2 Instance, including the Instance Type. We will eventually filter our output down to Instance Type alone.
+
+aws ec2 describe-instances
+2) Specify an instance-type filter via the --filter param. If this is not specified, this query will display all instance types where count > 0. This will not include 0-count types because the output is derived from your collection of EC2 instances.
+
+--filters "Name=instance-type,Values=t2.micro,t2.small"
+3) Specify a region via the --region param. If this is not specified, AWS CLI will attempt to use your default region.
+
+--region us-east-1 
+4) Specify your query. Output an array of key/value pairs where Key = "InstanceType", Value = InstanceType.
+
+--query "Reservations[].Instances[].{InstanceType:InstanceType}"
+5) Use jq to group by Instance Type, so that like-InstanceTypes will be aggregated.
+
+| jq "group_by(.InstanceType)
+6) Map a final array of key/value pairs, where key = InstanceType and value = jq length, or in other words the sum of each group of instance types.
+
+| map({(.[0].InstanceType):length})
+Full Example:
+aws ec2 describe-instances --region us-east-1 --filters "Name=instance-type,Values=t2.micro,t2.small" --query "Reservations[].Instances[].{InstanceType:InstanceType}" | jq "group_by(.InstanceType) | map({(.[0].InstanceType):length})"
+Output:
+[
+  {
+    "t2.micro": 12
+  },
+  {
+    "t2.small": 2
+  }
+]
