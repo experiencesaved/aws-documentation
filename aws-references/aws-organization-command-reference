@@ -1,1 +1,6 @@
+//List organization member accounts
 aws organizations list-accounts
+
+
+//Show/List users
+aws sts get-caller-identity
